@@ -1,6 +1,4 @@
-'use strict'
-
-const BaseExceptionHandler = use('BaseExceptionHandler')
+const BaseExceptionHandler = use('BaseExceptionHandler');
 
 /**
  * This class handles all exceptions thrown during
@@ -20,19 +18,19 @@ class ExceptionHandler extends BaseExceptionHandler {
    *
    * @return {void}
    */
-  async handle (error, { request, response }) {
+  async handle(error, { request, response }) {
     if (error.name === 'ValidationException') {
-      return response.status(error.status).send(error.messages)
+      return response.status(error.status).send(error.messages);
     }
 
     if (Env.get('NODE_ENV') === 'development') {
-      const youch = Youch(error, request.request)
-      const errorJSON = await youch.toJSON()
+      const youch = Youch(error, request.request);
+      const errorJSON = await youch.toJSON();
 
-      return response.status(error.status).send(errorJSON)
+      return response.status(error.status).send(errorJSON);
     }
 
-    return response.status(error.status)
+    return response.status(error.status);
   }
 
   /**
@@ -45,9 +43,10 @@ class ExceptionHandler extends BaseExceptionHandler {
    *
    * @return {void}
    */
-  async report (error, { request }) {
-    console.log(error)
+  async report(error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
   }
 }
 
-module.exports = ExceptionHandler
+module.exports = ExceptionHandler;
