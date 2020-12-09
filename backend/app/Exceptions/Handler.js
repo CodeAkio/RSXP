@@ -1,4 +1,6 @@
 const BaseExceptionHandler = use('BaseExceptionHandler');
+const Env = use('Env');
+const Youch = use('Youch');
 
 /**
  * This class handles all exceptions thrown during
@@ -24,7 +26,7 @@ class ExceptionHandler extends BaseExceptionHandler {
     }
 
     if (Env.get('NODE_ENV') === 'development') {
-      const youch = Youch(error, request.request);
+      const youch = new Youch(error, request.request);
       const errorJSON = await youch.toJSON();
 
       return response.status(error.status).send(errorJSON);
