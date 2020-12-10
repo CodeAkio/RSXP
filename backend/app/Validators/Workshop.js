@@ -1,3 +1,4 @@
+const Antl = use('Antl');
 const { rule } = use('Validator');
 
 class Workshop {
@@ -16,6 +17,10 @@ class Workshop {
         rule('exists', ['users', 'id']),
       ],
     };
+  }
+
+  get messages() {
+    return Antl.list('validation');
   }
 }
 
