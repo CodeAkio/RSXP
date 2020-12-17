@@ -9,6 +9,16 @@ const Workshop = use('App/Models/Workshop');
  * Resourceful controller for interacting with workshops
  */
 class WorkshopController {
+  async index() {
+    const workshops = await Workshop.query()
+      .with('user', (builder) => {
+        builder.select(['id', 'name']);
+      })
+      .fetch();
+
+    return workshops;
+  }
+
   /**
    * Create/save a new workshop.
    * POST workshops
