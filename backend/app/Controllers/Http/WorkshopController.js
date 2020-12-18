@@ -19,6 +19,15 @@ class WorkshopController {
     return workshops;
   }
 
+  async show({ params: { id } }) {
+    const workshop = await Workshop.findOrFail(id);
+    await workshop.load('user', (builder) => {
+      builder.select(['id', 'name', 'github', 'linkedin', 'avatar']);
+    });
+
+    return workshop;
+  }
+
   /**
    * Create/save a new workshop.
    * POST workshops
