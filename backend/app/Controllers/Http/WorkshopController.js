@@ -43,6 +43,17 @@ class WorkshopController {
 
     return response.status(201).json(workshop);
   }
+
+  async update({ request, params }) {
+    const data = request.only(['title', 'description', 'user_id', 'section']);
+
+    const workshop = await Workshop.findOrFail(params.id);
+
+    workshop.merge(data);
+    await workshop.save();
+
+    return workshop;
+  }
 }
 
 module.exports = WorkshopController;

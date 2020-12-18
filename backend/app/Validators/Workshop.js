@@ -11,11 +11,7 @@ class Workshop {
       title: [rule('required')],
       description: [rule('required')],
       section: [rule('required'), rule('integer'), rule('in', [1, 2, 3])],
-      user_id: [
-        rule('required'),
-        rule('integer'),
-        rule('exists', ['users', 'id']),
-      ],
+      user_id: [rule('integer'), rule('exists', ['users', 'id'])],
     };
   }
 
