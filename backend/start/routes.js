@@ -30,4 +30,5 @@ Route.group(() => {
   Route.put('/workshops/:id', 'WorkshopController.update').validator(
     'Workshop'
   );
+  Route.delete('/workshops/:id', 'WorkshopController.destroy');
 }).middleware('auth');

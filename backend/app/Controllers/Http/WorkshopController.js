@@ -54,6 +54,12 @@ class WorkshopController {
 
     return workshop;
   }
+
+  async destroy({ params }) {
+    const workshop = await Workshop.findOrFail(params.id);
+
+    await workshop.delete();
+  }
 }
 
 module.exports = WorkshopController;
