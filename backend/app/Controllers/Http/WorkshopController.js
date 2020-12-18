@@ -12,7 +12,7 @@ class WorkshopController {
   async index() {
     const workshops = await Workshop.query()
       .with('user', (builder) => {
-        builder.select(['id', 'name']);
+        builder.select(['id', 'name', 'avatar']);
       })
       .fetch();
 
