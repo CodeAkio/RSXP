@@ -88,3 +88,21 @@ test('workshop can only receive 48 subscriptions', async ({
 
   assert.equal(workshopSubscriptions[0].total, 48);
 }).timeout(6000);
+
+test('user should unsubscribe from a workshop', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create();
+  const workshop = await Factory.model('App/Models/Workshop').create();
+
+  await user.subscriptions().attach(workshop.id);
+
+  const response = await client
+    .delete(`/workshops/${workshop.id}/subscriptions`)
+    .loginVia(user, 'jwt')
+    .end();
+
+  response.assertStatus(204);
+
+  const subscriptionWorkshop = await user.subscriptions().first();
+
+  assert.isNull(subscriptionWorkshop);
+});
